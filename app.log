@@ -1,0 +1,21 @@
+2024-06-17 16:08:35,064 - fastapi_logger - DEBUG - Accessing /
+2024-06-17 16:08:52,412 - fastapi_logger - DEBUG - Accessing /
+2024-06-17 16:09:03,502 - fastapi_logger - DEBUG - Accessing /
+2024-06-17 16:24:59,908 - fastapi_logger - ERROR - Failed to load configuration: Configuration file 'config.json' not found.
+2024-06-17 16:25:25,965 - fastapi_logger - ERROR - Failed to load configuration: Configuration file 'config.json' not found.
+2024-06-17 16:25:25,965 - fastapi_logger - ERROR - Failed to load configuration: Configuration file 'config.json' not found.
+2024-06-17 16:25:51,366 - fastapi_logger - ERROR - Failed to load configuration: Configuration file 'config.json' not found.
+2024-06-17 16:25:51,367 - fastapi_logger - ERROR - Failed to load configuration: Configuration file 'config.json' not found.
+2024-06-17 16:29:04,903 - fastapi_logger - ERROR - Failed to load configuration: Configuration file 'config.json' not found.
+2024-06-17 16:29:04,904 - fastapi_logger - ERROR - Failed to load configuration: Configuration file 'config.json' not found.
+2024-06-17 16:29:25,275 - fastapi_logger - ERROR - Failed to load configuration: Configuration file 'config.json' not found.
+2024-06-17 16:29:25,276 - fastapi_logger - ERROR - Failed to load configuration: Configuration file 'config.json' not found.
+2024-06-17 16:30:13,250 - fastapi_logger - ERROR - Failed to load configuration: Configuration file 'config.json' not found.
+2024-06-17 16:30:13,250 - fastapi_logger - ERROR - Failed to load configuration: Configuration file 'config.json' not found.
+2024-06-17 16:30:49,337 - fastapi_logger - ERROR - Failed to load configuration: Configuration file '../../config/config.json' not found.
+2024-06-17 16:30:49,337 - fastapi_logger - ERROR - Failed to load configuration: Configuration file '../../config/config.json' not found.
+2024-06-17 16:34:24,148 - fastapi_logger - ERROR - Failed to load configuration: Unknown level: 'debug'
+2024-06-17 16:34:24,149 - fastapi_logger - ERROR - Failed to load configuration: Unknown level: 'debug'
+2024-06-17 16:36:33,188 - fastapi_logger - ERROR - Failed to load configuration: Unknown level: 'debug'
+2024-06-17 16:36:33,188 - fastapi_logger - ERROR - Failed to load configuration: Unknown level: 'debug'
+2024-06-17 16:37:46,018 - fastapi_logger - DEBUG - Accessing /
