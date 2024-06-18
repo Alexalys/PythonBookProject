@@ -4,9 +4,9 @@ from app.db.database import Base
 
 
 class BookModel(Base):
-    __tablename__ = 'books'
+    __tablename__ = "books"
 
-    id = id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     title = Column(String, index=True)
     author = Column(String, nullable=True)
     publicationDate = Column(Date, nullable=True)
