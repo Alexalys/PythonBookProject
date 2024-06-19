@@ -1,12 +1,10 @@
 from sqlalchemy import Column, Integer, String, Date
-from sqlalchemy.ext.declarative import declarative_base
-from app.db.database import Base
+from app.models.Base import Base
 
 
 class BookModel(Base):
     __tablename__ = "books"
 
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     title = Column(String, index=True)
     author = Column(String, nullable=True)
     publicationDate = Column(Date, nullable=True)

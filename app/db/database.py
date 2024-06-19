@@ -1,12 +1,33 @@
+from typing import Iterator
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session
+from app.models.Base import Base
+from contextlib import contextmanager
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./app.db"
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+_engine = None
+_session_local = None
 
-Base = declarative_base()
+
+def init_db():
+    global Base, _engine, _session_local
+
+    _engine = create_engine(
+        SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+    )
+    Base.metadata.create_all(bind=_engine)
+    _session_local = sessionmaker(autocommit=False, autoflush=False, bind=_engine)
+
+
+@contextmanager
+def get_session() -> Iterator[Session]:
+    global _session_local
+    if _session_local is None:
+        raise Exception("DB is not initialized")
+    db = _session_local()
+    try:
+        yield db
+    finally:
+        db.close()

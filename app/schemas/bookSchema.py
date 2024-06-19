@@ -25,7 +25,7 @@ class BookCreate(BaseModel):
 
 
 class Book(BaseModel):
-    id: int = Field(1, description="Title of the book", example="Great Expectations")
+    uuid: str = Field("", description="Title of the book", example="Great Expectations")
     title: str = Field(
         "", description="Title of the book", example="Great Expectations"
     )

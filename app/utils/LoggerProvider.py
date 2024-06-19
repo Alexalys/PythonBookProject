@@ -1,6 +1,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 
+
 class LoggerProvider:
     _instance = None
 
@@ -10,11 +11,11 @@ class LoggerProvider:
         return cls._instance
 
     def __init__(
-        self, 
-        log_file: str = "app.log", 
-        max_bytes: int = 10485760, 
-        backup_count: int = 10, 
-        log_level: str = "INFO"
+        self,
+        log_file: str = "app.log",
+        max_bytes: int = 10485760,
+        backup_count: int = 10,
+        log_level: str = "INFO",
     ):
         """
         Initializes the LoggerProvider with specified configuration.
@@ -25,7 +26,7 @@ class LoggerProvider:
             backup_count (int): The number of backup files to keep.
             log_level (str): The logging level.
         """
-        if not hasattr(self, 'initialized'):
+        if not hasattr(self, "initialized"):
             self.log_file = log_file
             self.max_bytes = max_bytes
             self.backup_count = backup_count
@@ -46,9 +47,7 @@ class LoggerProvider:
         # Create handlers
         stream_handler = logging.StreamHandler()
         file_handler = RotatingFileHandler(
-            self.log_file, 
-            maxBytes=self.max_bytes, 
-            backupCount=self.backup_count
+            self.log_file, maxBytes=self.max_bytes, backupCount=self.backup_count
         )
 
         # Set log level for handlers
@@ -56,7 +55,9 @@ class LoggerProvider:
         file_handler.setLevel(self._get_log_level(self.log_level))
 
         # Create formatters and add to handlers
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
         stream_handler.setFormatter(formatter)
         file_handler.setFormatter(formatter)
 
@@ -98,3 +99,6 @@ class LoggerProvider:
             logging.Logger: The configured logger instance.
         """
         return self.logger
+
+
+logger: LoggerProvider = LoggerProvider()

@@ -7,8 +7,16 @@ from app.schemas.bookSchema import BookCreate
 
 
 class LlmProvider:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(LlmProvider, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+
     def __init__(self):
-        self.client = OpenAI()
+        if not hasattr(self, "client"):
+            self.client = OpenAI()
 
     def generate_book_info(self, book: BookCreate) -> BookModel:
         response = self.client.chat.completions.create(
@@ -30,3 +38,6 @@ class LlmProvider:
             content["publicationDate"], "%Y-%m-%d"
         ).date()
         return BookModel(**content)
+
+
+llm_provider: LlmProvider = LlmProvider()
