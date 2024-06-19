@@ -7,6 +7,6 @@ class BookModel(Base):
 
     title = Column(String, index=True)
     author = Column(String, nullable=True)
-    publicationDate = Column(Date, nullable=True)
+    publication_date = Column(Date, nullable=True)
     description = Column(String, nullable=True)
     genre = Column(String, nullable=True)

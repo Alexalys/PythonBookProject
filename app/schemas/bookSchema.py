@@ -1,15 +1,26 @@
 # Pydantic model for request payload
 from datetime import date
 from typing import Optional
-from pydantic import BaseModel, Field, constr, model_validator, root_validator
+from pydantic import BaseModel, Field, model_validator
 
 
-class BookCreate(BaseModel):
+class BookCreateSchema(BaseModel):
     title: str = Field(
-        "", description="Title of the book", example="Great expectations"
+        ..., description="Title of the book", example="Great Expectations"
     )
     author: Optional[str] = Field(
         None, description="Author of the book", example="Charles Dickens"
+    )
+    publication_date: Optional[str] = Field(
+        None, description="Publication date of the book", example="1949-06-08"
+    )
+    description: Optional[str] = Field(
+        None,
+        description="Description of the book",
+        example="This novel describes some ancient times",
+    )
+    genre: Optional[str] = Field(
+        None, description="Genre of the book", example="A dystopian novel"
     )
 
     @model_validator(mode="before")
@@ -20,19 +31,47 @@ class BookCreate(BaseModel):
             raise ValueError("Title must not be empty")
         return values
 
-    def __repr__(self):
-        return f"BookCreate(title={self.title!r}, author={self.author!r})"
 
-
-class Book(BaseModel):
-    uuid: str = Field("", description="Title of the book", example="Great Expectations")
-    title: str = Field(
-        "", description="Title of the book", example="Great Expectations"
+class BookSchema(BaseModel):
+    uuid: str = Field(
+        ..., description="uuid", example="123e4567-e89b-12d3-a456-426614174000"
     )
-    author: str = Field("", description="Author of the book", example="Charles Dickens")
-    publicationDate: date = Field("", description="Publication date of the book")
-    description: str = Field("", description="Description of the book")
-    genre: str = Field("", description="Genre of the book")
+    title: str = Field(
+        ..., description="Title of the book", example="Great Expectations"
+    )
+    author: str = Field(
+        ..., description="Author of the book", example="Charles Dickens"
+    )
+    publication_date: date = Field(
+        ..., description="Publication date of the book", example="1949-06-08"
+    )
+    description: str = Field(
+        ..., description="Description of the book", example="Some description"
+    )
+    genre: str = Field(
+        ..., description="Genre of the book", example="A dystopian novel"
+    )
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+
+class BookRecommendation(BaseModel):
+    title: str = Field(
+        ..., description="Title of the book", example="Great Expectations"
+    )
+    author: str = Field(
+        ..., description="Author of the book", example="Charles Dickens"
+    )
+    publication_date: date = Field(
+        ..., description="Publication date of the book", example="1949-06-08"
+    )
+    description: str = Field(
+        ..., description="Description of the book", example="Some description"
+    )
+    genre: str = Field(
+        ..., description="Genre of the book", example="A dystopian novel"
+    )
+
+    class Config:
+        from_attributes = True
