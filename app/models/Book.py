@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy import Column, String, Date, UniqueConstraint
 from app.models.Base import Base
 
 
@@ -10,3 +10,4 @@ class BookModel(Base):
     publication_date = Column(Date, nullable=True)
     description = Column(String, nullable=True)
     genre = Column(String, nullable=True)
+    __table_args__ = (UniqueConstraint("title", "author", name="_title_author_uc"),)

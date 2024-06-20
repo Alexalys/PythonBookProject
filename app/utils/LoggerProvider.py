@@ -101,4 +101,4 @@ class LoggerProvider:
         return self.logger
 
 
-logger: LoggerProvider = LoggerProvider().get_logger()
+logger: logging.Logger = LoggerProvider().get_logger()

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query, status
-from app.configuration.errors import LlmError
-from app.db.Adapter import BasicAdapter
+from app.configuration.exceptions import DBException, LlmException
+from app.db.Adapter import BookAdapter
 from app.db.domains.BookRepository import BookRepository
 from app.schemas.bookSchema import BookRecommendation, BookSchema, BookCreateSchema
 from app.utils.LlmProvider import llm_provider
@@ -15,7 +15,7 @@ from app.configuration.responses import (
 
 router = APIRouter()
 book_repository: BookRepository = BookRepository()
-adapter: BasicAdapter = BasicAdapter()
+adapter: BookAdapter = BookAdapter()
 
 
 class BookApiRouter:
@@ -37,13 +37,15 @@ class BookApiRouter:
         try:
             logger.info("Creating new Book")
             db_book: BookModel = llm_provider.generate_book_info(book)
-        except LlmError as exc:
+        except LlmException as exc:
             logger.error(f"Error creating book: {exc}")
             raise HTTPException(status_code=500, detail=str(exc))
-        except Exception as exc:
+        try:
+            book = book_repository.create(db_book=db_book)
+        except DBException as exc:
             logger.error(f"Error creating book: {exc}")
             raise HTTPException(status_code=500, detail=str(exc))
-        return book_repository.create(db_book=db_book)
+        return book
 
     @router.get(
         "/books/recommendation",

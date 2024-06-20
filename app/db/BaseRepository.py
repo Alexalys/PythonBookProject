@@ -1,4 +1,3 @@
-from sqlalchemy.orm import Session
 from abc import ABC, abstractmethod
 
 

@@ -1,3 +1,5 @@
+from sqlalchemy.exc import IntegrityError
+from app.configuration.exceptions import DBException
 from app.db.BaseRepository import BaseRepository
 from app.db.database import get_session
 from app.models.Book import BookModel
@@ -5,11 +7,16 @@ from app.models.Book import BookModel
 
 class BookRepository(BaseRepository):
     def create(self, db_book: BookModel):
-        with get_session() as db:
-            db.add(db_book)
-            db.commit()
-            db.refresh(db_book)
-            return db_book
+        try:
+            with get_session() as db:
+                db.add(db_book)
+                db.commit()
+                db.refresh(db_book)
+                return db_book
+        except IntegrityError:
+            error: DBException = DBException()
+            error.message = "Author and book pair already exists"
+            raise error
 
     def find_one(self, book_id: str):
         with get_session() as db:
