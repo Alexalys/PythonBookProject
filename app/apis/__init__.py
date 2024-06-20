@@ -1,8 +1,10 @@
 import json
+import os
 from fastapi import FastAPI
 from app.apis.book_api import router as book_router
 from app.utils.LoggerProvider import LoggerProvider
 from app.db.database import init_db
+from dotenv import load_dotenv
 
 
 def load_config(file_path: str) -> dict:
@@ -39,8 +41,9 @@ def configure_logging(log_file: str, log_level: str = "INFO") -> LoggerProvider:
 
 
 # DB setup
-init_db()
-
+load_dotenv()
+db_url = os.getenv("SQLALCHEMY_DATABASE_URL")
+init_db(db_url)
 
 # Application setup
 project_prefix = "api/v1"

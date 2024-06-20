@@ -6,7 +6,12 @@ from app.schemas.bookSchema import BookRecommendation, BookSchema, BookCreateSch
 from app.utils.LlmProvider import llm_provider
 from app.utils.LoggerProvider import logger
 from app.models.Book import BookModel
-from app.configuration.responses import post_responses, get_response, get_responses
+from app.configuration.responses import (
+    post_responses,
+    get_response,
+    get_responses,
+    delete_response,
+)
 
 router = APIRouter()
 book_repository: BookRepository = BookRepository()
@@ -45,7 +50,7 @@ class BookApiRouter:
         response_model=list[BookRecommendation],
         responses=get_responses,
     )
-    async def get_book(
+    async def get_recommendation(
         offset: int = Query(0, ge=0),
         limit: int = Query(10, gt=0),
     ) -> list[BookRecommendation]:
@@ -82,9 +87,27 @@ class BookApiRouter:
             raise HTTPException(status_code=404, detail="Book is not found")
         return book
 
+    @router.delete(
+        "/books/{book_id}",
+        status_code=204,
+        responses=delete_response,
+    )
+    async def delete_book(book_id: str) -> None:
+        """
+        Delete a book by its ID.
+
+        - **book_id**: ID of the book to delete.
+        """
+
+        logger.info("Reading a book")
+        del_count: int = book_repository.delete_one(book_id=book_id)
+        if del_count == 0:
+            logger.error(f"Error while deleting a book")
+            raise HTTPException(status_code=404, detail="Book is not found")
+
     # Endpoint to get all books
     @router.get("/books/", response_model=list[BookSchema], responses=get_responses)
-    async def get_book(
+    async def get_books(
         offset: int = Query(0, ge=0),
         limit: int = Query(10, gt=0),
     ) -> list[BookSchema]:

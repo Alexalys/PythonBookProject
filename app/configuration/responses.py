@@ -78,3 +78,22 @@ get_responses = {
         },
     },
 }
+
+delete_response = {
+    204: {
+        "description": "Successfuly deleted",
+        "content": {},
+    },
+    404: {
+        "description": "Book not Found",
+        "content": {"application/json": {"example": {"detail": "Book is not found"}}},
+    },
+    500: {
+        "description": "Internal Server Error",
+        "content": {
+            "application/json": {
+                "example": {"detail": "An error occurred while reading books"}
+            }
+        },
+    },
+}
