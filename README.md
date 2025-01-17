@@ -67,14 +67,6 @@ OPENAI_API_KEY=your-openai-api-key
 - Replace `username` and `password` with your PostgreSQL credentials.
 - Get your **OpenAI API Key** from [OpenAI's official website](https://platform.openai.com/signup).
 
-### 5. Database Migrations
-
-Apply the database migrations using Alembic to set up the schema:
-
-```bash
-alembic upgrade head
-```
-
 ---
 
 ## Running the Application
